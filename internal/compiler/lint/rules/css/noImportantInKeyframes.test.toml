@@ -1,6 +1,6 @@
-filename: "filename.css"
-invalid: [
-	"
+filename = "filename.css"
+invalid = [
+	"""
 @keyframes foo {
   from {
     opacity: 0;
@@ -12,10 +12,10 @@ invalid: [
     width: 100px !important;
   }
 }
-	"
+	""",
 ]
-valid: [
-	"
+valid = [
+	"""
 @keyframes foo {
   from {
     opacity: 0;
@@ -25,5 +25,5 @@ valid: [
     opacity: 1;
   }
 }
-	"
+	""",
 ]

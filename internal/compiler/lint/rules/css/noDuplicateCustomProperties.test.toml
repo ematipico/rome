@@ -1,17 +1,18 @@
-filename: "filename.css"
-invalid: [
-	"
+filename = "filename.css"
+invalid = [
+	"""
 		.style {
 			--custom-prop: foo;
 			--custom-prop: bar;
 		}
-	"
+	""",
 ]
-valid: [
-	"
+valid = [
+	"""
 		.style {
 			--custom-prop: foo;
 			--custom-PROP: bar;
 		}
-		"
+
+	""",
 ]

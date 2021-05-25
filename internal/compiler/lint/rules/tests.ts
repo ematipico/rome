@@ -39,7 +39,7 @@ function normalizeCases(
 	}
 }
 
-/* GENERATED:START(hash:37b1ee00481b7531777773bd51ac0bff0f7712f9,id:main) Everything below is automatically generated. DO NOT MODIFY. Run `./rome run scripts/generated-files/lint-rules` to update. */
+/* GENERATED:START(hash:6c39dd0997d34cc528f1f2df7b2cece0bbc42302,id:main) Everything below is automatically generated. DO NOT MODIFY. Run `./rome run scripts/generated-files/lint-rules` to update. */
 // @ts-ignore
 import noAccessKey from "./a11y/noAccessKey.test.toml";
 // @ts-ignore
@@ -68,6 +68,10 @@ import useKeyWithClickEvents from "./a11y/useKeyWithClickEvents.test.toml";
 import useKeyWithMouseEvents from "./a11y/useKeyWithMouseEvents.test.toml";
 // @ts-ignore
 import useValidAnchor from "./a11y/useValidAnchor.test.toml";
+// @ts-ignore
+import noDuplicateCustomProperties from "./css/noDuplicateCustomProperties.test.toml";
+// @ts-ignore
+import noImportantInKeyframes from "./css/noImportantInKeyframes.test.toml";
 // @ts-ignore
 import useClosingNonVoid from "./html/useClosingNonVoid.test.toml";
 // @ts-ignore
@@ -295,6 +299,14 @@ export const tests: Tests = {
 	"a11y/useValidAnchor": {
 		category: ["lint", "a11y", "useValidAnchor"],
 		cases: normalizeCases(useValidAnchor),
+	},
+	"css/noDuplicateCustomProperties": {
+		category: ["lint", "css", "noDuplicateCustomProperties"],
+		cases: normalizeCases(noDuplicateCustomProperties),
+	},
+	"css/noImportantInKeyframes": {
+		category: ["lint", "css", "noImportantInKeyframes"],
+		cases: normalizeCases(noImportantInKeyframes),
 	},
 	"html/useClosingNonVoid": {
 		category: ["lint", "html", "useClosingNonVoid"],
