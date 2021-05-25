@@ -39,7 +39,7 @@ function normalizeCases(
 	}
 }
 
-/* GENERATED:START(hash:6c39dd0997d34cc528f1f2df7b2cece0bbc42302,id:main) Everything below is automatically generated. DO NOT MODIFY. Run `./rome run scripts/generated-files/lint-rules` to update. */
+/* GENERATED:START(hash:ec1fc7eb87b2ba179458f6e58039708d60428ae3,id:main) Everything below is automatically generated. DO NOT MODIFY. Run `./rome run scripts/generated-files/lint-rules` to update. */
 // @ts-ignore
 import noAccessKey from "./a11y/noAccessKey.test.toml";
 // @ts-ignore
@@ -52,6 +52,8 @@ import noOnChange from "./a11y/noOnChange.test.toml";
 import noPositiveTabindex from "./a11y/noPositiveTabindex.test.toml";
 // @ts-ignore
 import noRedundantAlt from "./a11y/noRedundantAlt.test.toml";
+// @ts-ignore
+import noRedundantRoles from "./a11y/noRedundantRoles.test.toml";
 // @ts-ignore
 import noTargetBlank from "./a11y/noTargetBlank.test.toml";
 // @ts-ignore
@@ -169,8 +171,6 @@ import useTemplate from "./js/useTemplate.test.toml";
 // @ts-ignore
 import useWhile from "./js/useWhile.test.toml";
 // @ts-ignore
-import noRedundantRoles from "./jsx-a11y/noRedundantRoles.test.toml";
-// @ts-ignore
 import noCommentText from "./jsx/noCommentText.test.toml";
 // @ts-ignore
 import noDuplicateProps from "./jsx/noDuplicateProps.test.toml";
@@ -241,7 +241,11 @@ import noMultipleSpacesInRegularExpressionLiterals from "./regex/noMultipleSpace
 // @ts-ignore
 import noPosixInRegularExpression from "./regex/noPosixInRegularExpression.test.toml";
 // @ts-ignore
+import noExplicitAny from "./ts/noExplicitAny.test.toml";
+// @ts-ignore
 import preferShorthandArrayType from "./ts/preferShorthandArrayType.test.toml";
+// @ts-ignore
+import useSimplifiedBooleanExpression from "./ts/useSimplifiedBooleanExpression.test.toml";
 
 export const tests: Tests = {
 	"a11y/noAccessKey": {
@@ -267,6 +271,10 @@ export const tests: Tests = {
 	"a11y/noRedundantAlt": {
 		category: ["lint", "a11y", "noRedundantAlt"],
 		cases: normalizeCases(noRedundantAlt),
+	},
+	"a11y/noRedundantRoles": {
+		category: ["lint", "a11y", "noRedundantRoles"],
+		cases: normalizeCases(noRedundantRoles),
 	},
 	"a11y/noTargetBlank": {
 		category: ["lint", "a11y", "noTargetBlank"],
@@ -500,10 +508,6 @@ export const tests: Tests = {
 		category: ["lint", "js", "useWhile"],
 		cases: normalizeCases(useWhile),
 	},
-	"jsx-a11y/noRedundantRoles": {
-		category: ["lint", "jsx-a11y", "noRedundantRoles"],
-		cases: normalizeCases(noRedundantRoles),
-	},
 	"jsx/noCommentText": {
 		category: ["lint", "jsx", "noCommentText"],
 		cases: normalizeCases(noCommentText),
@@ -644,9 +648,17 @@ export const tests: Tests = {
 		category: ["lint", "regex", "noPosixInRegularExpression"],
 		cases: normalizeCases(noPosixInRegularExpression),
 	},
+	"ts/noExplicitAny": {
+		category: ["lint", "ts", "noExplicitAny"],
+		cases: normalizeCases(noExplicitAny),
+	},
 	"ts/preferShorthandArrayType": {
 		category: ["lint", "ts", "preferShorthandArrayType"],
 		cases: normalizeCases(preferShorthandArrayType),
+	},
+	"ts/useSimplifiedBooleanExpression": {
+		category: ["lint", "ts", "useSimplifiedBooleanExpression"],
+		cases: normalizeCases(useSimplifiedBooleanExpression),
 	},
 };
 /* GENERATED:END(id:main) */
