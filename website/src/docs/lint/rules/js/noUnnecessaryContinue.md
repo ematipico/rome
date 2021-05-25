@@ -17,7 +17,7 @@ This rule detects `continue` statements that can be marked as unnecessary. These
 
 <!-- GENERATED:END(id:description) -->
 
-<!-- GENERATED:START(hash:4ac510fed71ef4c2ed2a456b9e6c6b8b4ee45e86,id:examples) Everything below is automatically generated. DO NOT MODIFY. Run `./rome run scripts/generated-files/lint-rules-docs` to update. -->
+<!-- GENERATED:START(hash:3f7f886a4de54cedb5930c00d97c619da30b5096,id:examples) Everything below is automatically generated. DO NOT MODIFY. Run `./rome run scripts/generated-files/lint-rules-docs` to update. -->
 ## Examples
 
 ### Invalid
@@ -38,6 +38,25 @@ This rule detects `continue` statements that can be marked as unnecessary. These
   <strong><span style="color: rgb(38, 148, 255);">ℹ </span></strong><span style="color: rgb(38, 148, 255);">Safe fix</span>
 
   <span style="color: Tomato;">-</span> <span style="color: Tomato;"><strong>continue</strong></span><span style="color: Tomato;"><strong><span style="opacity: 0.8;">&middot;</span></strong></span><span style="color: Tomato;"><strong>loop;</strong></span>
+
+</code></pre>{% endraw %}
+
+---
+
+{% raw %}<pre class="language-ts"><code class="language-ts"><span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token variable">i</span><span class="token operator">--</span><span class="token punctuation">)</span>
+		<span class="token keyword">continue</span><span class="token punctuation">;</span></code></pre>{% endraw %}
+{% raw %}<pre class="language-text"><code class="language-text">
+ <span style="text-decoration-style: dashed; text-decoration-line: underline;">file.ts:2:2</span> <strong>lint/js/noUnnecessaryContinue</strong> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━
+
+  <strong><span style="color: Tomato;">✖ </span></strong><span style="color: Tomato;">Unnecessary </span><span style="color: Tomato;"><strong>continue</strong></span><span style="color: Tomato;"> statement</span>
+
+  <strong>  1</strong><strong> │ </strong><span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token variable">i</span><span class="token operator">--</span><span class="token punctuation">)</span>
+  <strong><span style="color: Tomato;">&gt;</span></strong><strong> 2</strong><strong> │ </strong>    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+     <strong> │ </strong>    <span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span><span style="color: Tomato;"><strong>^</strong></span>
+
+  <strong><span style="color: rgb(38, 148, 255);">ℹ </span></strong><span style="color: rgb(38, 148, 255);">Safe fix</span>
+
+  <span style="color: Tomato;">-</span> <span style="color: Tomato;"><strong>continue;</strong></span>
 
 </code></pre>{% endraw %}
 
