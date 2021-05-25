@@ -35,29 +35,7 @@ loop: for (let i = 0; i < 5; i++) {}
 
 ```
 
- lint/js/noUnnecessaryContinue/reject/2/file.ts:2:2 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
-
-  ✖ Unnecessary continue statement
-
-  ℹ Safe fix
-
-  - continue;
-
-
-```
-
-### `1: formatted`
-
-```ts
-while (i--) {}
-
-```
-
-### `2`
-
-```
-
- lint/js/noUnnecessaryContinue/reject/3/file.ts:2:1 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
+ lint/js/noUnnecessaryContinue/reject/2/file.ts:2:1 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
 
   ✖ Unnecessary continue statement
 
@@ -73,18 +51,18 @@ while (i--) {}
 
 ```
 
-### `2: formatted`
+### `1: formatted`
 
 ```ts
 while (1) {}
 
 ```
 
-### `3`
+### `2`
 
 ```
 
- lint/js/noUnnecessaryContinue/reject/4/file.ts:4:4 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
+ lint/js/noUnnecessaryContinue/reject/3/file.ts:4:4 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
 
   ✖ Unnecessary continue statement
 
@@ -102,26 +80,28 @@ while (1) {}
 
 ```
 
-### `3: formatted`
+### `2: formatted`
 
 ```ts
 for (let i = 0; i < 10; i++) {
 	if (i > 5) {
 		console.log("foo");
-	} else if (i >= 5 && i < 8) {
+	}
+	else if (i >= 5 && i < 8) {
 		console.log("test");
-	} else {
+	}
+	else {
 		console.log("test");
 	}
 }
 
 ```
 
-### `4`
+### `3`
 
 ```
 
- lint/js/noUnnecessaryContinue/reject/5/file.ts:2:1 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
+ lint/js/noUnnecessaryContinue/reject/4/file.ts:2:1 lint/js/noUnnecessaryContinue  FIXABLE  ━━━━━━━━
 
   ✖ Unnecessary continue statement
 
@@ -137,10 +117,29 @@ for (let i = 0; i < 10; i++) {
 
 ```
 
-### `4: formatted`
+### `3: formatted`
 
 ```ts
 for (let i = 0; i < 9; i++) {}
+
+```
+
+### `4`
+
+```
+
+```
+
+### `4: formatted`
+
+```ts
+while (i) {
+	if (i > 5) {
+		continue;
+	}
+	console.log(i);
+	i--;
+}
 
 ```
 
@@ -154,11 +153,8 @@ for (let i = 0; i < 9; i++) {}
 
 ```ts
 while (i) {
-	if (i > 5) {
-		continue;
-	}
+	continue;
 	console.log(i);
-	i--;
 }
 
 ```
@@ -170,22 +166,6 @@ while (i) {
 ```
 
 ### `6: formatted`
-
-```ts
-while (i) {
-	continue;
-	console.log(i);
-}
-
-```
-
-### `7`
-
-```
-
-```
-
-### `7: formatted`
 
 ```ts
 while (condition) {
@@ -203,13 +183,13 @@ while (condition) {
 
 ```
 
-### `8`
+### `7`
 
 ```
 
 ```
 
-### `8: formatted`
+### `7: formatted`
 
 ```ts
 loop: while (1) {
@@ -222,13 +202,13 @@ loop: while (1) {
 
 ```
 
-### `9`
+### `8`
 
 ```
 
 ```
 
-### `9: formatted`
+### `8: formatted`
 
 ```ts
 loop: for (let i = 0; i < 10; i++) {
