@@ -38,4 +38,8 @@ export const parserCore = createDiagnosticsCategory({
 			message: markup`Expected token ${expected} but got ${got}`,
 		};
 	},
+
+	INVALID_ASSERTION: (str: string) => ({
+		message: markup`Couldn't find ${str}.`,
+	}),
 });

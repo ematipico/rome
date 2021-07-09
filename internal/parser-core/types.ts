@@ -20,17 +20,25 @@ import {AnyNode} from "@internal/ast";
 import TokenizerCore from "./TokenizerCore";
 
 export type ParserCoreReadCallback = (
+	/**
+	 * The current character
+	 */
 	char: string,
+	/**
+	 * The current index
+	 */
 	index: ZeroIndexed,
+	/**
+	 * The input
+	 */
 	input: string,
 ) => boolean;
 
-// rome-ignore lint/ts/noExplicitAny: future cleanup
 export type AnyParserCore = ParserCore<{
 	tokens: TokensShape;
-	state: Dict<any>;
-	options: ParserOptions & Dict<any>;
-	meta: Dict<any> | void;
+	state: Dict<unknown>;
+	options: ParserOptions & Dict<unknown>;
+	meta: Dict<unknown> | void;
 }>;
 
 export type ParserCoreFactory<Types extends ParserCoreTypes> = {

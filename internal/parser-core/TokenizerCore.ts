@@ -40,6 +40,9 @@ export type TokenizerUnexpected = (
 	index: ZeroIndexed,
 ) => void;
 
+/**
+ * Generic interface to tokenize input text
+ */
 export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 	constructor(
 		{input, indexTracker, parser, unexpected}: TokenizerOptions<Types>,
@@ -62,6 +65,12 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 	private indexTracker: PositionTracker;
 	private indexChar: string;
 
+	/**
+	 * It raises a diagnostic
+	 *
+	 * @param description
+	 * @param index
+	 */
 	public unexpected(
 		description: DiagnosticDescriptionOptional,
 		index: ZeroIndexed = this.index,
@@ -88,20 +97,42 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return this.index.valueOf() >= this.input.length;
 	}
 
+	/**
+	 * Uses {@link setIndex} and also set {@link start} to the given
+	 * index
+	 *
+	 * @param {ZeroIndexed} index The index to set
+	 */
 	public setTokenStart(index: ZeroIndexed) {
 		this.start = index;
 		this.setIndex(index);
 	}
 
+	/**
+	 * It sets the current index to a specific position
+	 *
+	 * @param {ZeroIndexed} index The index to set
+	 */
 	public setIndex(index: ZeroIndexed) {
 		this.index = index;
 		this.indexChar = this.input[index.valueOf()];
 	}
 
+	/**
+	 * Returns the position of the current index
+	 */
 	public getPosition(): Position {
 		return this.indexTracker.getPositionFromIndex(this.index);
 	}
 
+	/**
+	 * Checks that, starting from the current index, the input
+	 * string starts with the given string.
+	 *
+	 * It doesn't move the index forward.
+	 *
+	 * @param {string} str The string to check against
+	 */
 	public startsWith(str: string): boolean {
 		if (str[0] !== this.indexChar) {
 			return false;
@@ -120,6 +151,14 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return chunk === str;
 	}
 
+	/**
+	 * It returns the string resultant from the current index
+	 * minus the given number
+	 *
+	 * It changes the current index to this.index - count
+	 *
+	 * @param {number} count
+	 */
 	public reverse(count: number): string {
 		const i = this.index.valueOf();
 		const str = this.input.slice(i - count, i);
@@ -127,6 +166,13 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return str;
 	}
 
+	/**
+	 * It returns the string resultant from the current index
+	 * plus the given number.
+	 *
+	 * It changes the current index to this.index plus the given count.
+	 * @param {number} count
+	 */
 	public take(count: number): string {
 		if (count === 1) {
 			const char = this.input[this.index.valueOf()];
@@ -140,6 +186,13 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return str;
 	}
 
+	/**
+	 * It applies {@link startsWith} and move forward the index.
+	 * It returns the found string.
+	 *
+	 * @param {string} str The string to search
+	 * @return {string | undefined}
+	 */
 	public eat<T extends string>(str: T): undefined | T {
 		if (this.startsWith(str)) {
 			this.setIndex(this.index.add(str.length));
@@ -149,6 +202,12 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		}
 	}
 
+	/**
+	 * It applies {@link startsWith} and move forward the index.
+	 *
+	 * @param {string} str The string to search
+	 * @return {boolean}
+	 */
 	public consume(str: string): boolean {
 		if (this.startsWith(str)) {
 			this.setIndex(this.index.add(str.length));
@@ -158,19 +217,33 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		}
 	}
 
+	/**
+	 * It checks if a string exists. It throws an error if not found.
+	 *
+	 * @param {string} str The string the search
+	 */
 	public assert(str: string): void {
 		if (!this.consume(str)) {
 			// TODO message
 			if (this.parser === undefined) {
-				throw new Error();
+				throw new Error(
+					"Tokenizer initialised without a parser, something is not correct",
+				);
 			} else {
 				this.parser.unexpectedDiagnostic({
+					description: descriptions.PARSER_CORE.INVALID_ASSERTION(str),
 					index: this.index,
 				});
 			}
 		}
 	}
 
+	/**
+	 * It returns the character at the given index.
+	 * If a offset is passed, it return the character from current index plus the offset.
+	 *
+	 * @param {number=} offset
+	 */
 	public get(offset?: number): string {
 		if (offset === undefined || offset === 0) {
 			return this.indexChar;
@@ -187,6 +260,14 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		}
 	}
 
+	/**
+	 * It returns the string from the current index plus the given count.
+	 *
+	 * It doesn't change the current index.
+	 *
+	 * @param {number} count How many characters to count from the current index
+	 * @param {number=0} offset Additional offset to add to the current index. It doesn't move the current index.
+	 */
 	public getRange(count: number, offset: number = 0): string {
 		const {input, index} = this;
 		const start = index.valueOf() + offset;
@@ -194,6 +275,12 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return input.slice(start, end);
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @param count
+	 * @param {ParserCoreReadCallback} callback
+	 */
 	public readAssertCount(
 		name: string,
 		count: number,
@@ -223,7 +310,11 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return str;
 	}
 
-	// Read from the input until the callback returns false
+	/**
+	 * Read from the input until the callback returns false
+	 *
+	 * @param {ParserCoreReadCallback} callback
+	 */
 	public read(callback: ParserCoreReadCallback): string {
 		// Perform a quick check first
 		if (!callback(this.indexChar, this.index, this.input)) {
@@ -261,6 +352,10 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		return value;
 	}
 
+	/**
+	 * Useful to finis tokens, it gets the next index.
+	 * @private
+	 */
 	private getEndIndex(): ZeroIndexed {
 		if (this.index.equal(this.start)) {
 			return this.index.increment();
@@ -269,6 +364,11 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		}
 	}
 
+	/**
+	 * Creates a simple token.
+	 *
+	 * @param {Type} type The type of token to create
+	 */
 	public finishToken<Type extends StringTokenNames<Types>>(
 		type: Type,
 	): SimpleToken<Type> {
@@ -279,6 +379,12 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		};
 	}
 
+	/**
+	 * Creates a token with some value
+	 *
+	 * @param {Type} type The type of token to create
+	 * @param {Value} value The value to pass to the token
+	 */
 	public finishValueToken<Type extends StringTokenNames<Types>, Value>(
 		type: Type,
 		value: Value,
@@ -291,6 +397,12 @@ export default class TokenizerCore<Types extends ParserCoreTypes = EmptyTypes> {
 		};
 	}
 
+	/**
+	 * Creates a complex token. A complex token can yield different type of information.
+	 *
+	 * @param {Type} type The type of token to create
+	 * @param {Data} data An object/array that contains various information
+	 */
 	public finishComplexToken<
 		Type extends StringTokenNames<Types>,
 		Data extends Omit<Types["tokens"][Type], "type" | "start" | "end">
